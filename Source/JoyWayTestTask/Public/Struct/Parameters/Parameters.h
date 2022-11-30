@@ -14,15 +14,20 @@ struct JOYWAYTESTTASK_API FCombatParameters
 	GENERATED_BODY()
 
 	FCombatParameters()
-	: Health (100)
+		: CurrentHealth(100),
+		MaxHealth(100)
 	{
 	}
 
-	FCombatParameters(int32 InHealth)
-		: Health(InHealth)
+	FCombatParameters(int32 InHealth, int32 InMaxHealth)
+		: CurrentHealth(InHealth),
+		MaxHealth(InMaxHealth)
 	{
 	}
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = CharacterParameters)
-	int32 Health;
+	int32 CurrentHealth;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = CharacterParameters)
+	int32 MaxHealth;
 };

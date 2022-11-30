@@ -5,11 +5,7 @@
 // Sets default values for this component's properties
 UEquipmentComponent::UEquipmentComponent()
 {
-	// Set this component to be initialized when the game starts, and to be ticked every frame.  You can turn these features
-	// off to improve performance if you don't need them.
-	PrimaryComponentTick.bCanEverTick = true;
-
-	// ...
+	PrimaryComponentTick.bCanEverTick = false;
 }
 
 
@@ -18,16 +14,69 @@ void UEquipmentComponent::BeginPlay()
 {
 	Super::BeginPlay();
 
-	// ...
-	
+	for (auto Slot : SlotsConfig)
+	{
+		SlottedItems.Add(Slot, nullptr);
+	}
+
+	NotifyEquipmentLoaded();
 }
 
 
-// Called every frame
-void UEquipmentComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
+bool UEquipmentComponent::SetSlottedItem(FItemSlot ItemSlot, UInventoryItemBase* Item)
 {
-	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
+	if (ItemSlot.IsValid())
+	{
+		SlottedItems.Add(ItemSlot, Item);
+		NotifySlottedItemChanged(ItemSlot, Item);
+		if (IsValid(Item))
+		{
+			return true;
+		}
+	}
+	return false;
+}
 
-	// ...
+UInventoryItemBase* UEquipmentComponent::GetSlottedItem(FItemSlot ItemSlot) const
+{
+	UInventoryItemBase* const* FoundItem = SlottedItems.Find(ItemSlot);
+
+	if (FoundItem)
+	{
+		return *FoundItem;
+	}
+	return nullptr;
+}
+
+void UEquipmentComponent::GetSlottedItemsByType(TArray<UInventoryItemBase*>& Items, FPrimaryAssetType ItemType)
+{
+	for (TPair<FItemSlot, UInventoryItemBase*>& Pair : SlottedItems)
+	{
+		if (Pair.Key.SlotType == ItemType || !ItemType.IsValid())
+		{
+			Items.Add(Pair.Value);
+		}
+	}
+}
+
+void UEquipmentComponent::GetAllSlots(TArray<FItemSlot>& Slots) const
+{
+	SlottedItems.GetKeys(Slots);
+}
+
+void UEquipmentComponent::NotifySlottedItemChanged(FItemSlot ItemSlot, UInventoryItemBase* Item)
+{
+	// Notify native before blueprint
+	OnSlottedItemChangedNative.Broadcast(ItemSlot, Item);
+	OnSlottedItemChanged.Broadcast(ItemSlot, Item);
+
+	// Call BP update event
+	SlottedItemChanged(ItemSlot, Item);
+}
+
+void UEquipmentComponent::NotifyEquipmentLoaded()
+{
+	OnEquipmentLoaded.Broadcast();
+	OnEquipmentLoadedNative.Broadcast();
 }
 

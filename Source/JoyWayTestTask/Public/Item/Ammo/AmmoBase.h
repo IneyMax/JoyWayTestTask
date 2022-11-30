@@ -17,7 +17,7 @@ protected:
 	FAmmoConfig AmmoConfig;
 	
 public:	
-	// Sets default values for this actor's properties
+	
 	AAmmoBase();
 
 protected:

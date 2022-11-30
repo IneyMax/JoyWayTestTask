@@ -4,13 +4,21 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
+#include "ItemData/InventoryItemBase.h"
 #include "PickupBase.generated.h"
 
 UCLASS()
 class JOYWAYTESTTASK_API APickupBase : public AActor
 {
 	GENERATED_BODY()
-	
+
+protected:
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = InventoryItem)
+	UInventoryItemBase* InventoryItem;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = InventoryItem)
+	int32 ItemCount;
+
 public:	
 	// Sets default values for this actor's properties
 	APickupBase();

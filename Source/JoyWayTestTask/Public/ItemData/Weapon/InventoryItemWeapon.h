@@ -7,6 +7,7 @@
 #include "Engine/AssetManager.h"
 #include "Item/Weapon/WeaponBase.h"
 #include "ItemData/InventoryItemBase.h"
+#include "ItemData/Ammo/InventoryItemAmmo.h"
 #include "InventoryItemWeapon.generated.h"
 
 /**
@@ -28,10 +29,11 @@ public:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = Weapon)
 	TSubclassOf<AWeaponBase> WeaponClass;
 
-	/** Weapon actor to spawn */
+	/** Weapon ammo type */
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = Weapon)
-	TArray<TSubclassOf<AAmmoBase>> AmmoClasses;
+	TArray<TSubclassOf<UInventoryItemAmmo>> AmmoClasses;
 
+	/** Weapon config */
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = Weapon)
-	FWeaponConfig WeaponStats;
+	FWeaponConfig WeaponConfig;
 };

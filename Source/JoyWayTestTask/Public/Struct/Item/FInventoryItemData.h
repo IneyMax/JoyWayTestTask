@@ -20,7 +20,8 @@ struct JOYWAYTESTTASK_API FInventoryItemData
 
 	FInventoryItemData(int32 InItemCount)
 		: ItemCount(InItemCount)
-	{}
+	{
+	}
 
 	/** The number of instances of this item in the inventory, can never be below 1 */
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Item)

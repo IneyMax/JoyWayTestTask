@@ -14,7 +14,12 @@ class JOYWAYTESTTASK_API UInventoryItemBase : public UPrimaryDataAsset
 {
 	GENERATED_BODY()
 
-protected:
+public:
+	/** Constructor */
+	UInventoryItemBase()
+		: MaxCount(1)
+	{}
+	
 	/** Type of this item */
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, BlueprintGetter = GetItemType, Category = Item)
 	FPrimaryAssetType ItemType;
@@ -22,10 +27,6 @@ protected:
 	/** User-visible short name */
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Item)
 	FText ItemName;
-
-	/** User-visible long description */
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Item)
-	FText ItemDescription;
 	
 	/** Maximum number of instances that can be in inventory at once, <= 0 means infinite */
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Item)
@@ -39,7 +40,7 @@ protected:
 	UFUNCTION(BlueprintCallable, Category = Item)
 	FString GetIdentifierString() const;
 
-	/** Returns the logical name, equivalent to the primary asset id */
+	/** Primary asset type */
 	UFUNCTION(BlueprintGetter, Category = Item)
 	FPrimaryAssetType GetItemType() const;
 

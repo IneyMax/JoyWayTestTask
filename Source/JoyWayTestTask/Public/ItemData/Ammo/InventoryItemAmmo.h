@@ -23,10 +23,11 @@ public:
 		ItemType = UAssetManagerMain::AmmoItemType;
 	}
 	
-	/** Weapon actor to spawn */
+	/** Ammo actor to spawn */
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = Ammo)
 	TSubclassOf<AAmmoBase> AmmoClass;
 
+	/** Ammo config */
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = Ammo)
 	FAmmoConfig AmmoStats;
 };
