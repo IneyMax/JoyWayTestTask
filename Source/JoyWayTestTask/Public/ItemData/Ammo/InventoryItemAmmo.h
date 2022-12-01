@@ -29,5 +29,5 @@ public:
 
 	/** Ammo config */
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = Ammo)
-	FAmmoConfig AmmoStats;
+	FAmmoConfig AmmoConfig;
 };

@@ -4,7 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
-#include "Item/Ammo/AmmoBase.h"
+#include "ItemData/Ammo/InventoryItemAmmo.h"
 #include "Struct/Item/FWeaponConfig.h"
 #include "WeaponBase.generated.h"
 
@@ -22,7 +22,22 @@ protected:
 	FWeaponConfig WeaponConfig;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category=Weapon)
-	TSubclassOf<AAmmoBase> AmmoClass;
+	TArray<UInventoryItemAmmo*> PossibleAmmo;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category=Weapon)
+	UInventoryItemAmmo* AmmoItem;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category=Weapon)
+	bool bIsUse;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category=Weapon)
+	int32 ShotCount;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category=Weapon)
+	FTimerHandle ShotDelayTimer;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category=Weapon)
+	FTimerHandle ReloadTimer;
 	
 protected:
 	// Called when the game starts or when spawned
@@ -31,4 +46,7 @@ protected:
 public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
+
+	UFUNCTION(BlueprintCallable, Category = Weapon)
+	void Init (FWeaponConfig NewConfig, TArray<UInventoryItemAmmo*> Ammo);
 };

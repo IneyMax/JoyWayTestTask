@@ -117,7 +117,7 @@ bool UInventoryComponent::AddInventoryItem(UInventoryItemBase* NewItem, int32 It
 	{
 		// If data changed, need to update storage and call callback
 		InventoryData.Add(NewItem, NewData);
-		NotifyInventoryItemChanged(true, NewItem);
+		NotifyInventoryItemChanged(NewData.ItemCount, NewItem);
 		SaveInventory();
 		return true;
 	}
@@ -168,7 +168,7 @@ bool UInventoryComponent::RemoveInventoryItem(int32& NewCount, UInventoryItemBas
 	}
 
 	// If we got this far, there is a change so notify and save
-	NotifyInventoryItemChanged(false, RemovedItem);
+	NotifyInventoryItemChanged(NewCount, RemovedItem);
 	SaveInventory();
 	return true;
 }
@@ -202,13 +202,13 @@ int32 UInventoryComponent::GetInventoryItemCount(UInventoryItemBase* Item) const
 }
 
 
-void UInventoryComponent::NotifyInventoryItemChanged(bool bAdded, UInventoryItemBase* Item)
+void UInventoryComponent::NotifyInventoryItemChanged(int32 NewCount, UInventoryItemBase* Item)
 {
 	// Notify native before blueprint
-	OnInventoryItemChangedNative.Broadcast(bAdded, Item);
-	OnInventoryItemChanged.Broadcast(bAdded, Item);
+	OnInventoryItemChangedNative.Broadcast(NewCount, Item);
+	OnInventoryItemChanged.Broadcast(NewCount, Item);
 
 	// Call BP update event
-	InventoryItemChanged(bAdded, Item);
+	InventoryItemChanged(NewCount, Item);
 }
 

@@ -31,7 +31,7 @@ public:
 
 	/** Weapon ammo type */
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = Weapon)
-	TArray<TSubclassOf<UInventoryItemAmmo>> AmmoClasses;
+	TArray<UInventoryItemAmmo*> PossibleAmmo;
 
 	/** Weapon config */
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = Weapon)

@@ -13,5 +13,6 @@ UCLASS()
 class JOYWAYTESTTASK_API AJoyWayTestTaskGameModeBase : public AGameModeBase
 {
 	GENERATED_BODY()
-	
+
+	AJoyWayTestTaskGameModeBase();
 };

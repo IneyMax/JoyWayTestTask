@@ -36,7 +36,7 @@ protected:
 
 	/** Map of slot, from type/num to Actor */
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = Equipment)
-	TMap<FItemSlot, AActor*> ActorToSlots;
+	TMap<FItemSlot, UObject*> ObjectsToSlots;
 
 public:
 	/** Delegate called when an inventory slot has changed */
@@ -62,7 +62,7 @@ public:
 	UFUNCTION(BlueprintImplementableEvent, Category = Equipment)
 	void SlottedItemChanged(FItemSlot ItemSlot, UInventoryItemBase* Item);
 	
-	/** Sets slot to item, will remove from other slots if necessary. If passing null this will empty the slot */
+	/** Sets slot to item. If passing null this will empty the slot */
 	UFUNCTION(BlueprintCallable, Category = Equipment)
 	bool SetSlottedItem(FItemSlot ItemSlot, UInventoryItemBase* Item);
 

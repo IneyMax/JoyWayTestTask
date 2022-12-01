@@ -17,15 +17,15 @@ struct JOYWAYTESTTASK_API FWeaponConfig
 		: ShotsDelay(1),
 		ReloadTime(1),
 		WeaponDamage(0),
-		ShopCapacity(0)
+		ClipCapacity(0)
 	{
 	}
 
-	FWeaponConfig(float InShotsDelay, float InReloadTime, int32 InWeaponDamage, int32 InShopCapacity)
+	FWeaponConfig(float InShotsDelay, float InReloadTime, int32 InWeaponDamage, int32 InClipCapacity)
 		: ShotsDelay(InShotsDelay),
 		ReloadTime(InReloadTime),
 		WeaponDamage(InWeaponDamage),
-		ShopCapacity(InShopCapacity)
+		ClipCapacity(InClipCapacity)
 	{
 	}
 
@@ -39,5 +39,5 @@ struct JOYWAYTESTTASK_API FWeaponConfig
 	int32 WeaponDamage;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Weapon)
-	int32 ShopCapacity;
+	int32 ClipCapacity;
 };

@@ -2,6 +2,8 @@
 
 #include "ActorComponents/EquipmentComponent.h"
 
+#include "Core/AssetManagerMain.h"
+
 // Sets default values for this component's properties
 UEquipmentComponent::UEquipmentComponent()
 {
@@ -14,9 +16,15 @@ void UEquipmentComponent::BeginPlay()
 {
 	Super::BeginPlay();
 
-	for (auto Slot : SlotsConfig)
+	for (FItemSlot Slot : SlotsConfig)
 	{
 		SlottedItems.Add(Slot, nullptr);
+		if (Slot.SlotType == UAssetManagerMain::WeaponItemType)
+		{
+			FItemSlot AmmoSlot = Slot;
+			AmmoSlot.SlotType = UAssetManagerMain::AmmoItemType;
+			SlottedItems.Add(AmmoSlot, nullptr);
+		}
 	}
 
 	NotifyEquipmentLoaded();
@@ -25,14 +33,17 @@ void UEquipmentComponent::BeginPlay()
 
 bool UEquipmentComponent::SetSlottedItem(FItemSlot ItemSlot, UInventoryItemBase* Item)
 {
-	if (ItemSlot.IsValid())
+	if (!ItemSlot.IsValid())
 	{
-		SlottedItems.Add(ItemSlot, Item);
-		NotifySlottedItemChanged(ItemSlot, Item);
-		if (IsValid(Item))
-		{
-			return true;
-		}
+		return false;
+	}
+	
+	SlottedItems.Add(ItemSlot, Item);
+	NotifySlottedItemChanged(ItemSlot, Item);
+	
+	if (IsValid(Item))
+	{
+		return true;
 	}
 	return false;
 }

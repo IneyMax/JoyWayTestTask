@@ -25,3 +25,9 @@ void AWeaponBase::Tick(float DeltaTime)
 
 }
 
+void AWeaponBase::Init(FWeaponConfig NewConfig, TArray<UInventoryItemAmmo*> Ammo)
+{
+	WeaponConfig = NewConfig;
+	PossibleAmmo = Ammo;
+}
+

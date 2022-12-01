@@ -25,3 +25,8 @@ void AAmmoBase::Tick(float DeltaTime)
 
 }
 
+void AAmmoBase::Init(FAmmoConfig NewConfig)
+{
+	AmmoConfig = NewConfig;
+}
+

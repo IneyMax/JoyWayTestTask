@@ -9,9 +9,13 @@
 #include "InventoryComponent.generated.h"
 
 
-/** Delegate called when the entire inventory has been loaded, all items may have been replaced */
+/** Delegate called when the entire inventory has been loaded */
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnInventoryLoaded);
 DECLARE_MULTICAST_DELEGATE(FOnInventoryLoadedNative);
+
+/** Delegate called when an inventory item changes */
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnInventoryItemChanged, int32, NewCount, UInventoryItemBase*, Item);
+DECLARE_MULTICAST_DELEGATE_TwoParams(FOnInventoryItemChangedNative, int32, UInventoryItemBase*);
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent), Blueprintable, BlueprintType )
 class JOYWAYTESTTASK_API UInventoryComponent : public UActorComponent
@@ -41,7 +45,7 @@ public:
 	
 	/** Called after the inventory was changed and we notified all delegates */
 	UFUNCTION(BlueprintImplementableEvent, Category = Inventory)
-	void InventoryItemChanged(bool bAdded, UInventoryItemBase* Item);
+	void InventoryItemChanged(int32 NewCount, UInventoryItemBase* Item);
 
 	/** Delegate called when the inventory has been loaded/reloaded */
 	UPROPERTY(BlueprintAssignable, Category = Inventory)
@@ -82,5 +86,5 @@ public:
 
 protected:
 	/** Calls the inventory update callbacks */
-	void NotifyInventoryItemChanged(bool bAdded, UInventoryItemBase* Item);
+	void NotifyInventoryItemChanged(int32 NewCount, UInventoryItemBase* Item);
 };

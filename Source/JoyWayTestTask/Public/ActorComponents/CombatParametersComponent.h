@@ -9,12 +9,12 @@
 
 
 /** Delegate called when an Health Changed */
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnHealthChanged, float, CurrenHealth, float, MaxHealth);
-DECLARE_MULTICAST_DELEGATE_TwoParams(FOnHealthChangedNative, float, float);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnHealthChanged, int32, CurrenHealth, int32, MaxHealth);
+DECLARE_MULTICAST_DELEGATE_TwoParams(FOnHealthChangedNative, int32, int32);
 
 /** Delegate called when an Take Damage */
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnTakeDamage, float, DamageAmount, AActor*, DamageSource);
-DECLARE_MULTICAST_DELEGATE_TwoParams(FOnTakeDamageNative, float, AActor*);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnTakeDamage, int32, DamageAmount, AActor*, DamageSource);
+DECLARE_MULTICAST_DELEGATE_TwoParams(FOnTakeDamageNative, int32, AActor*);
 
 
 UCLASS( ClassGroup=(CombatParameters), meta=(BlueprintSpawnableComponent), Blueprintable, BlueprintType )
@@ -35,13 +35,13 @@ protected:
 	
 protected:
 	UFUNCTION(BlueprintCallable, Category = CharacterStats)
-	void GetHealthStats (float &CurrenHP, float &MaxHP) const;
+	void GetHealthStats (int32& CurrenHP, int32& MaxHP) const;
 
 	UFUNCTION(BlueprintCallable, Category = CharacterStats)
-	void TakeDamage(float DamageSize, AActor* DamageSource);
+	void TakeDamage(int32 DamageSize, AActor* DamageSource);
 
 	UFUNCTION(BlueprintCallable, Category = CharacterStats)
-	void HealthRecover(float RecoverableHealth);
+	void HealthRecover(int32 RecoverableHealth);
 
 	/** Delegate called when an Health Changed */
 	UPROPERTY(BlueprintAssignable, Category = CharacterStats)
@@ -58,13 +58,13 @@ protected:
 	
 	/** Called after the inventory was changed and we notified all delegates */
 	UFUNCTION(BlueprintImplementableEvent, Category = CharacterStats)
-	void CallHealthChanged(float CurrentHP, float MaxHP);
+	void CallHealthChanged(int32 CurrentHP, int32 MaxHP);
 
 	/** Called after the inventory was changed and we notified all delegates */
 	UFUNCTION(BlueprintImplementableEvent, Category = CharacterStats)
-	void CallTakeDamage(float DamageSize, AActor* DamageSource);
+	void CallTakeDamage(int32 DamageSize, AActor* DamageSource);
 
-	void NotifyHealthChanged(float CurrentHP, float MaxHP);
-	void NotifyTakeDamage(float DamageSize, AActor* DamageSource);
+	void NotifyHealthChanged(int32 CurrentHP, int32 MaxHP);
+	void NotifyTakeDamage(int32 DamageSize, AActor* DamageSource);
 };
 

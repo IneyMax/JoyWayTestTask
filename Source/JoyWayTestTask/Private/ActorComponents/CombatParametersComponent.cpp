@@ -16,26 +16,26 @@ void UCombatParametersComponent::BeginPlay()
 	Super::BeginPlay();
 }
 
-void UCombatParametersComponent::GetHealthStats(float &CurrenHP, float &MaxHP) const
+void UCombatParametersComponent::GetHealthStats(int32 &CurrenHP, int32 &MaxHP) const
 {
 	MaxHP = CombatParameters.MaxHealth;
 	CurrenHP = CombatParameters.CurrentHealth;
 }
 
-void UCombatParametersComponent::TakeDamage(float DamageSize, AActor* DamageSource)
+void UCombatParametersComponent::TakeDamage(int32 DamageSize, AActor* DamageSource)
 {
 	CombatParameters.CurrentHealth = UKismetMathLibrary::Clamp((CombatParameters.CurrentHealth - DamageSize), 0, CombatParameters.MaxHealth);
 	NotifyHealthChanged(CombatParameters.CurrentHealth, CombatParameters.MaxHealth);
 	NotifyTakeDamage(DamageSize, DamageSource);
 }
 
-void UCombatParametersComponent::HealthRecover(float RecoverableHealth)
+void UCombatParametersComponent::HealthRecover(int32 RecoverableHealth)
 {
 	CombatParameters.CurrentHealth = UKismetMathLibrary::Clamp((CombatParameters.CurrentHealth + RecoverableHealth), 0, CombatParameters.MaxHealth);
 	NotifyHealthChanged(CombatParameters.CurrentHealth, CombatParameters.MaxHealth);
 }
 
-void UCombatParametersComponent::NotifyHealthChanged(float CurrentHP, float MaxHP)
+void UCombatParametersComponent::NotifyHealthChanged(int32 CurrentHP, int32 MaxHP)
 {
 	OnHealthChangedNative.Broadcast(CurrentHP, MaxHP);
 	OnHealthChanged.Broadcast(CurrentHP, MaxHP);
@@ -43,7 +43,7 @@ void UCombatParametersComponent::NotifyHealthChanged(float CurrentHP, float MaxH
 	CallHealthChanged(CurrentHP, MaxHP);
 }
 
-void UCombatParametersComponent::NotifyTakeDamage(float DamageSize, AActor* DamageSource)
+void UCombatParametersComponent::NotifyTakeDamage(int32 DamageSize, AActor* DamageSource)
 {
 	OnTakeDamageNative.Broadcast(DamageSize, DamageSource);
 	OnTakeDamage.Broadcast(DamageSize, DamageSource);

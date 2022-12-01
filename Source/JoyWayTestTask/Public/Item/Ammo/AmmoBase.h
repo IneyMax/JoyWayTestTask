@@ -12,19 +12,23 @@ class JOYWAYTESTTASK_API AAmmoBase : public AActor
 {
 	GENERATED_BODY()
 
+public:	
+	AAmmoBase();
+
 protected:
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category=Ammo)
 	FAmmoConfig AmmoConfig;
-	
-public:	
-	
-	AAmmoBase();
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category=Ammo)
+	float CurrentFlightDistance;
 
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
-
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
+
+	UFUNCTION(BlueprintCallable, Category = Weapon)
+	void Init (FAmmoConfig NewConfig);
 };

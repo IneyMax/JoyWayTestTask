@@ -14,19 +14,24 @@ struct JOYWAYTESTTASK_API FAmmoConfig
 	GENERATED_BODY()
 
 	FAmmoConfig()
-	: Speed(100),
-	BulletDamage(0)
+		: Speed(0),
+		MaxFlightDistance(0),
+		BulletDamage(0)
 	{
 	}
 
-	FAmmoConfig(float InSpeed, int32 InBulletDamage)
-	: Speed(InSpeed),
-	BulletDamage(InBulletDamage)
+	FAmmoConfig(float InSpeed, float InMaxFlightDistance, int32 InBulletDamage)
+		: Speed(InSpeed),
+		MaxFlightDistance(InMaxFlightDistance),
+		BulletDamage(InBulletDamage)
 	{
 	}
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Ammo)
 	float Speed;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Ammo)
+	float MaxFlightDistance;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Ammo)
 	int32 BulletDamage;

@@ -3,3 +3,7 @@
 
 #include "Core/JoyWayTestTaskGameModeBase.h"
 
+AJoyWayTestTaskGameModeBase::AJoyWayTestTaskGameModeBase()
+{
+	
+}
