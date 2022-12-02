@@ -23,6 +23,16 @@ void AAmmoBase::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
+	float NewOffset = AmmoConfig.Speed * GetWorld()->DeltaTimeSeconds;
+	CurrentFlightDistance += NewOffset;
+	
+	FHitResult CurrentHitResult;
+	RootComponent->AddWorldOffset(GetActorForwardVector() * NewOffset, true, &CurrentHitResult);
+
+	if (CurrentHitResult.bStartPenetrating || CurrentFlightDistance >= AmmoConfig.MaxFlightDistance)
+	{
+		Destroy();
+	}
 }
 
 void AAmmoBase::Init(FAmmoConfig NewConfig)
